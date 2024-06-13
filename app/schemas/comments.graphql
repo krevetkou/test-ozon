@@ -1,0 +1,28 @@
+type Comment {
+    id: ID!
+    postId: ID
+    commentId: ID
+    createdAt: Time!
+    comment: String!
+    comments: [Comment]
+}
+
+input CommentInput {
+    comment: String!
+}
+
+extend type Mutation {
+    CreateComment(postId: ID, commentId: ID, comment: String!): CommentResponse
+    UpdateComment(Id: ID!, comment: CommentInput!): CommentResponse
+}
+
+type CommentResponse {
+    message: String!
+    status: Int!
+    data: Comment
+}
+
+extend type Query {
+    IsCommentExists(id: ID!): Boolean!
+    GetCommentByID(id:ID!): CommentResponse
+}
